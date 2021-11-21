@@ -1,0 +1,15 @@
+for i = 1 to n do
+    for j = 1 to n do
+        dist(i, j, 0) = l(i, j) or infinity if (i, j) is not an edge
+
+for k = 1 to n do
+    for i = 1 to n do
+        for j = 1 to n do
+            dist(i, j, k) = min(
+                dist(i, j, k - 1),
+                dist(i, k, k - 1) + dist(k, j, k - 1)
+            )
+
+for i = 1 to n do
+    if (dist(i, i, n) < 0) then
+        Output that there is a negative length cycle

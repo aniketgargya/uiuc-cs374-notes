@@ -1,0 +1,8 @@
+do DFS(G_rev) and output vertices in decreasing post order
+Mark all nodes as unvisited
+for each  u in the computed order do
+    if u is not visited then
+        DFS(u)
+        Let S_u be the nodes reached by u
+        Output S_u as as a strong connected component
+        Remove S_u from G

@@ -1,0 +1,12 @@
+for each u in V do
+    d(u, 0) = infinity
+d(s, 0) = 0
+
+for k = 1 to n - 1 do
+    for each v in V do
+        d(v, k) = d(v, k - 1)
+        for each edge (u, v) in In(v) do
+            d(v, k) = min(d(v, k), d(u, k - 1) + l(u, v))
+
+for each v in V do
+    dist(s, v) = d(v, n - 1)

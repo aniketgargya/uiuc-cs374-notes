@@ -1,0 +1,11 @@
+fooboo(str w) {
+    foo()
+    if (w = 0^374) then
+        return YES
+    else
+        return NO
+}
+
+foo() {
+    code of foo...
+}

@@ -1,0 +1,164 @@
+\documentclass[12pt]{article}
+\usepackage{../lecture}
+\lecture{22}{Undecidability}
+\date{April 20, 2021}
+
+\begin{document}
+\maketitle
+
+\section{Recursive/Decidable Languages}
+
+\subsection{Turing Machine}
+\begin{itemize}
+    \item A TM is a DFA with infinite tape.
+    \item One move consists of a read, write, move one cell, or change state.
+    \item On a given input string $w$, a TM $M$ does one of the following:
+    \begin{itemize}
+        \item Halt and accept $w$.
+        \item Halt and reject $w$.
+        \item Go into an infinite loop (not halt).
+        \item Crash, in which case we think of it as rejecting $w$.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Recursive and Recursively Enumerable}
+\begin{itemize}
+    \item Given TM $M$, $L(M) = \{ w \in \sum^\ast \mid \text{$M$ accepts $w$} \}$. Caveat: A language $L$ can be accepted by many different TMs.
+    \item \textbf{Algorithm}: $M$ is an algorithm if it halts on every input and accepts/rejects.
+    \item \textbf{Decidable (or Recursive)}: A language $L$ is decidable or recursive if there is an algorithm $M$ such that $L = L(M)$.
+    \item \textbf{Recursive Enumerable (r.e.)}: A language $L$ is recursively enumerable if there is a TM $M$ such that $L = L(M)$.
+\end{itemize}
+
+\subsection{Recursive and Recursively Enumerable}
+\begin{itemize}
+    \item If $L$ is recursive, then $\overline{L} = \sum^\ast - L$ is also recursive.
+    \item If $L$ is recursive, then $L$ is a r.e.
+    \item Suppose $L$ is r.e. $L = L(M)$ for some $M$.
+    \begin{itemize}
+        \item If $w \in L$, then $M$ halts and accepts $w$.
+        \item If $w \notin L$, then $M$ may or may not halt. If $M$ halts, then it rejects $w$.
+    \end{itemize}
+    \item \textbf{Undecidable}: $L$ is undecidable if there is no algorithm $M$ such that $L = L(M)$.
+    \item $L$ is not r.e. if there is no TM $M$ such that $L = L(M)$.
+\end{itemize}
+
+\subsection{Universal TM}
+\begin{itemize}
+    \item A universal TM is a single TM that can simulate other TMs. It is the basis of modern computers. It is a single computer that can run many different programs.
+    \begin{itemize}
+        \item UTM takes $\langle M \rangle$ (an encoding of a TM $M$) as an input and a string $\langle w \rangle$. This is typically written as $\langle M, w \rangle$.
+        \item UTM simulates $M$ on $w$.
+        \begin{itemize}
+            \item If $M$ accepts $w$, then UTM accepts its input $\langle M, w \rangle$.
+            \item If $M$ halts and rejects $w$, then UTM rejects its input $\langle M, w \rangle$.
+            \item If $M$ does not halt on $w$, then UTM also does not halt on input $\langle M, w \rangle$, and hence does not accept its input.
+        \end{itemize}
+    \end{itemize}
+    \item The language accepted by UTM is called the Universal Language denoted by $L_u = \{ \langle M, w \rangle \mid \text{$M$ accepts $w$} \}$.
+\end{itemize}
+
+\subsection{Encoding TMs}
+\begin{itemize}
+    \item There is a fixed encoding such that every TM $M$ can be represented as a unique binary string.
+    \item Equivalently, we think of a TM as simply a program which is a string.
+    \item For each string that is not a valid encoding, we associate a dummy TM that does not accept any string just to create a one-to-one correspondence.
+    \item $M_i$ is the TM associate with integer $i$.
+\end{itemize}
+
+\subsection{How many TMs?}
+\begin{itemize}
+    \item There is a one-to-one correspondence between integers and TMs.
+    \item The number of TMs is countably infinite.
+    \item This has important corollaries:
+    \begin{itemize}
+        \item There are a countably infinite number of r.e. languages.
+        \item The number of languages is uncountably infinite. Hence, there must be languages that are not r.e./recursive, and hence undecidable. In fact, most languages 
+    \end{itemize}
+\end{itemize}
+
+\section{Undecidable Languages and Proofs via Reductions}
+
+\subsection{Undecidable Languages}
+\begin{itemize}
+    \item The counting argument shows that there exist too many languages and too few TMs/programs, and hence most languages are not decidable.
+    \item The Turing Theorem is the following languages are undecidable:
+    \begin{itemize}
+        \item $L_{\text{HALT}} = \{ \langle M \rangle \mid \text{$M$ halts on blank input} \}$
+        \item $L_{\text{HALT}, w} = \{ \langle M, w \rangle \mid \text{$M$ accepts $w$} \}$
+        \item $L_u = \{ \langle M, w \rangle \mid \text{$M$ accepts $w$} \}$
+    \end{itemize}
+\end{itemize}
+
+\subsection{Reducing Halting to Autograder}
+\begin{itemize}
+    \item Halting Problem: given an arbitrary program \texttt{foo()}, does it halt?
+    \item Reduction to CS125Autograder: given \texttt{foo()}, output \texttt{foobar()}.
+    \item[] \lstinputlisting{code/halting-to-autograder.sudo}
+    \item \texttt{foobar()} prints "Hello World" if and only if \texttt{foo()} halts.
+    \item If we had CS125Autograder, then we could solve Halting, but Halting is hard according to Turing.
+\end{itemize}
+
+\subsection{Connection to Proofs}
+\begin{itemize}
+    \item \textbf{Goldbach's Conjecture}: Every even integer $\geq 4$ can be written as the sum of two primes.
+    \begin{itemize}
+        \item We can write a program that halts if and only if the conjecture is false. If Halting can be solved, then so can Goldbach's conjecture.
+    \end{itemize}
+    \begin{itemize}
+        \item a template to show that essentially checking whether a given program's language satisfies some non-trivial property
+    \end{itemize}
+    \item $L_{374} = \{ \langle M \rangle \mid L(M) = \{ 0^{374} \} \}$
+    \begin{itemize}
+        \item Given an arbitrary program \texttt{boo(str w)}, does \texttt{boo()} accept only the string $0^{374}$ and nothing else?
+        \item We need to prove that if we had a decider \texttt{DecideL\_374} for $L_{374}$, then we can create a decider for Halt.
+        \item The decider for Halt takes an arbitrary program \texttt{foo()} and needs to check if \texttt{foo()} halts.
+        \item The reduction should transform \texttt{foo()} into a program \texttt{fooboo()} such that the answer to \texttt{fooboo()} from \texttt{DecideL\_374} will let us know if \texttt{foo()} halts.
+        \item[] \lstinputlisting{code/L_374-simpleboo.sudo}
+        \item $L(\texttt{simpleboo()}) = \{ 0^{374} \}$
+        \item Given an arbitrary program \texttt{foo()}, reduction creates \texttt{fooboo(str w)}
+        \item[] \lstinputlisting{code/L_374-fooboo.sudo}
+        \item The language of \texttt{fooboo()} is $\{ 0^{374} \}$ if \texttt{foo()} halts. The language of \texttt{fooboo()} is $\emptyset$ if \texttt{foo()} does not halt.
+        \item \texttt{fooboo()} is in $L_{374}$ if and only if $\texttt{foo()} \in L_{\text{HALT}}$.
+        \item If $L_{374}$ is decidable, then $L_\text{HALT}$ is decidable. Since $L_\text{HALT}$ is undecidable, $L_{374}$ is undecidable.
+    \end{itemize}
+    \item $L_{\neq \emptyset} = \{ \langle M \rangle \mid L(M) \neq \emptyset \}$
+    \begin{itemize}
+        \item Given an arbitrary program \texttt{boo(str w)}, does \texttt{boo()} accept any string?
+        \item[] \lstinputlisting{code/L_emptyset-simpleboo.sudo}
+        \item The language of \texttt{fooboo()} is $\sum^\ast$ is \texttt{foo()} halts. The language of \texttt{fooboo()} is $\emptyset$ if \texttt{foo()} does not halt.
+        \item $\texttt{fooboo()} \in L_{\neq \emptyset}$ if and only if $\texttt{foo()} \in L_\text{HALT}$.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Beyond r.e.}
+\begin{itemize}
+    \item If $L$ is recursive, then $\overline{L} = \sum^\ast - L$ is recursive.
+    \item Suppose $L$ and $\overline{L}$ are both r.e. Then $L$ is recursive.
+    \begin{itemize}
+        \item We have TMs $M, M'$ such that $L = L(M)$ and $\overline{L} = L(M')$. Construct a new TM $M^\ast$ such that on input $w$ simulates both $M$ and $M'$ on $w$ in parallel. One of them has to halt and give the right answer.
+    \end{itemize}
+    \item Suppose $L$ is r.e. but not recursive. Then $\overline{L}$ is not r.e.
+    \item Thus, $\overline{L_\text{HALT}}$ and $\overline{L_u}$ are not even r.e.
+\end{itemize}
+
+\section{Undecidability of Halting}
+
+\subsection{Diagonalization Based Proof}
+\begin{itemize}
+    \item TMs can be put in one-to-one correspondence with integers: $M_i$ is the $i$th TM.
+    \item $L_d = \{ \langle i \rangle \mid \text{$M_i$ does not accept $\langle i \rangle$} \}$, which is also the same as $L_d = \{ \langle M_i \rangle \mid \text{$M_i$ does not accept $\langle i \rangle$} \}$.
+    \item $L_d$ is not r.e.
+    \begin{itemize}
+        \item Proof by contradiction. Suppose it is. Then there is some $i^\ast$ such that $L_d = L(M_{i^\ast})$. Is $\langle i^\ast \rangle \in L_d$?
+        \begin{itemize}
+            \item If yes, then $M_{i^\ast}$ accepts $\langle i^\ast \rangle$ since $L_d = L(M_{i^\ast})$. But this is a contradiction because $i^\ast \notin L_d$ by definition of $L_d$.
+            \item If no, then $M_{i^\ast}$ does not accept $\langle i^\ast \rangle$ since $L_d = L(M_{i^\ast})$. But this is a contradiction since $i^\ast \in L_d$ by definition of $L_d$.
+        \end{itemize}
+    \end{itemize}
+    \item $L_d \leq \overline{L_u}$. That is, if there is an algorithm for $\overline{L_u}$, then here is an algorithm for $L_d$. Equivalently, if there is an algorithm for $L_u$, then there is an algorithm for $L_d$.
+    \begin{itemize}
+        \item We could simply feed $\langle M_i, i \rangle$ to the universal language to reduce $L_d$ to $L_u$.
+    \end{itemize}
+\end{itemize}
+
+\end{document} 

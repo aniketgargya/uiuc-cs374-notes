@@ -1,0 +1,7 @@
+Initialize for each node v, dist(s, v) = infinity
+Initialize X = empty set, dist(s, s) = 0
+for i = 1 to |V| do
+    Let v be such that dist(s, v) = min_(u in V - X)(dist(s, u))
+    X = X union { v }
+    for each u in Adj(v) do
+        dist(s, u) = min(dist(s, u), dist(s, v) + l(v, u))

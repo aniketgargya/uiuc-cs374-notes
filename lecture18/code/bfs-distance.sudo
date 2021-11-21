@@ -1,0 +1,14 @@
+BFS(s):
+    Mark all vertices as unvisited
+    for each v set dist(v) = infinity
+    Initialize search tree T to be empty
+    Mark vertex s as visited and set dist(s) = 0
+    set Q to be the empty queue
+    enq(s)
+    while Q is not empty do
+        u = deq(Q)
+        for each vertex v in Adj(u) do
+            if v is not visited then
+                add edge (u, v) to T
+                Mark v as visited and enq(v)
+                set dist(v) = dist(u) + 1

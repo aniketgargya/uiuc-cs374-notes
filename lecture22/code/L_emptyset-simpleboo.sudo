@@ -1,0 +1,3 @@
+simpleboo(str w) {
+    return YES
+}

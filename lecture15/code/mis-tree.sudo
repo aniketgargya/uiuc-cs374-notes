@@ -1,0 +1,9 @@
+MIS-Tree(T):
+    Let v_1, v_2, ..., v_n be a post order traversal of nodes of T
+    for i = 1 to n do:
+        M[v_i] = max(
+            sum of M[v_j] for all children v_j of v_i,
+            w(v_i) + sum of M[v_j] for all grandchildren v_j of v_i
+        )
+    
+    return M[v_n]

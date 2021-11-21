@@ -1,0 +1,15 @@
+FastMultiply(x, y, n):
+    if n < 4:
+        brute force
+    else:
+        m = ceiling(n / 2)
+        a = floor(x / 10^m)
+        b = x mod 10^m
+        a = floor(y / 10^m)
+        d = y mod 10^m
+
+        ac = FastMultiply(a, c, m)
+        bd = FastMultiply(b, d, m)
+
+        adbc = ac + bd - FastMultiply(a - b, c - d, m)
+        return ac * 10^2m + adbc * 10^m + bd

@@ -1,0 +1,5 @@
+Hanoi(n, src, dest, tmp):
+    if n > 0 then
+        Hanoi(n - 1, src, tmp, dest)
+        Move disk n from src to dest
+        Hanoi(n - 1, tmp, dest, src)

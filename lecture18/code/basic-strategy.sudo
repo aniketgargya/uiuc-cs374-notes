@@ -1,0 +1,6 @@
+Initialize for each node v, dist(s, v) = infinity
+Initialize X = { s }
+for i = 2 to |V| do
+    Among nodes in V - X, find the node v that is the ith closest to s
+    Update dist(s, v)
+    X = X union { v }

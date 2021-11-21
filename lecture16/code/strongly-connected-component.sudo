@@ -1,0 +1,4 @@
+while G is not empty do
+    Pick arbitrary node u
+    S = SCC(G, u)
+    Remove S from G

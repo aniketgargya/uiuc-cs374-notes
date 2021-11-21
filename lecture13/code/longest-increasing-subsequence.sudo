@@ -1,0 +1,9 @@
+LIS_smaller(A[1...n], x):
+    if (n = 0) then return 0
+    m = LIS_smaller(A[1...(n - 1)], x)
+    if (A[n] < x) then
+        m = max(m, 1 + LIS_smaller(A[1...(n - 1)], A[n]))
+    Output m
+
+LIS(A[1...n]):
+    return LIS_smaller(A[1...n], infinity)

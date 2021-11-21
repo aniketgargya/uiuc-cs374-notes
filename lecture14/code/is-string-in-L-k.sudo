@@ -1,0 +1,13 @@
+IsStringInLk(A[1...n], k):
+    if k = 0 then
+        if n = 0 then
+            Output YES
+        else
+            Output NO
+    if k = 1 then
+        Output IsStringInL(A[1...n])
+    else
+        for i = 1 to n - 1 do
+            if IsStringInL(A[1...i]) and IsStringInLk(A[i+1...n], k - 1) then
+                Output YES
+    Output NO

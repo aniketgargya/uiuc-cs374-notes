@@ -1,0 +1,6 @@
+QuickSort(A[1...n]):
+    if n > 1:
+        Choose a pivot element A[p]
+        r = Partition(A, p)
+        QuickSort(A[1...r-1])
+        QuickSort(A[r+1...n])

@@ -1,0 +1,7 @@
+Mark all vertices in V as not visited
+for each vertex u in V not visited yet do
+    find SCC(G, u)the strong component of u:
+        Compute rch(G, u) using DFS(G, u)
+        Compute rch(G_rev, u) using DFS(G_rev, u)
+        SCC(G, u) = intersection of rch(G, u) and rch(G_rev, u)
+        for every v in SCC(G, u): Mark v as visited

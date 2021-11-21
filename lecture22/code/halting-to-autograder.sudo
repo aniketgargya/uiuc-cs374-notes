@@ -1,0 +1,12 @@
+foobar() {
+    main() {
+        foo()
+        print(Hello World)
+    }
+
+    foo() {
+        line 1
+        line 2
+        ...
+    }
+}

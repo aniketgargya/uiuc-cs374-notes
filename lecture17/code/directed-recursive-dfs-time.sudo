@@ -1,0 +1,18 @@
+DFS(G):
+    for all u in V(G) do
+        Mark u as unvisited
+        Set pred(u) to null
+    T is set to empty set
+    time = 0
+    while there is an unvisited vertex v do
+        DFS(u)
+    Output T
+
+DFS(u):
+    Mark u as visited
+    pre(u) = ++time
+    for each (u, v) in Out(u) do
+        if v is not visited then
+            add edge (u, v) to T
+            DFS(v)
+    post(u) = ++time

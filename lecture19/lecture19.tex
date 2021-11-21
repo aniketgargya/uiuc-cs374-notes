@@ -1,0 +1,73 @@
+\documentclass[12pt]{article}
+\usepackage{../lecture}
+\lecture{19}{Bellman-Ford, Dynamic Programming on DAGs}
+\date{April 1, 2021}
+
+\begin{document}
+\maketitle
+
+\section{Negative Edges: Bellman-Ford}
+
+\subsection{Dijkstra's Algorithm and Negative Lengths}
+\begin{itemize}
+    \item With negative length edges, Dijkstra's algorithm can fail.
+    \item It is based on the assumption that if $s = v_0 \rightarrow v_1 \rightarrow v_2  \rightarrow ... \rightarrow v_k$ is a shortest path from $s$ to $v_k$, then $dist(s, v_i) \leq dist(s, v_{i + 1})$ for $0 \leq i < k$. The assumption only holds true for non-negative edge lengths.
+\end{itemize}
+
+\subsection{What Can We Learn from Dijkstra?}
+\begin{itemize}
+    \item However, $d'(s, u) = min(d'(s, u), dist(s, v) + l(v, u))$ because $d'(s, u) \geq d(s, u)$, still holds true.
+    \item If $s = v_0 \rightarrow v_1 \rightarrow v_2 \rightarrow ... \rightarrow v_k$ is a shortest path from $s to v_k$, then
+    \begin{itemize}
+        \item for $1 \leq i < k$, $s = v_0 \rightarrow v_1 \rightarrow v_2 \rightarrow ... \rightarrow v_i$ is a shortest path from $s$ to $v_i$. In other words, a subpath of a shortest path is still a shortest path.
+        \item it is not necessarily true that $dist(s, v_i) \leq dist(s, v_{i + 1})$. The intermediate set is no longer $X$; in fact, it can be anything.
+    \end{itemize}
+    \item Solution: Update all edges $\left|V\right| - 1$ times.
+\end{itemize}
+
+\subsection{Bellman-Ford Algorithm}
+\begin{itemize}
+    \item[] \lstinputlisting{code/bellman-ford.sudo}
+    \item The running time for this algorithm is $O(mn)$.
+\end{itemize}
+
+\section{Bellman-Ford and Dynamic Programming}
+
+\subsection{Shortest Paths and Recursion}
+\begin{itemize}
+    \item We can compute the shortest path distance from $s$ to $t$ recursively.
+    \item Let $G$ be a directed graph with arbitrary edge lengths. If $s = v_0 \rightarrow v_1 \rightarrow ... \rightarrow v_k$ is a shortest path from $s$ to $v_k$, then for $1 \leq i < k$, $s = v_0 \rightarrow v_1 \rightarrow ... \rightarrow v_i$ is a shortest path from $s$ to $v_i$.
+    \item Our sub-problem can be path of fewer hops/edges.
+\end{itemize}
+
+\subsection{Hop Based Recursion: Bellman-Ford Algorithm}
+\begin{itemize}
+    \item $d(v, k)$ is the shortest path length from $s$ to $v$ using at most $k$ edges. Note: $dist(s, v) = d(v, n - 1)$.
+    \item Recursion for $d(v, k)$: \begin{equation}
+        d(v, k) = min \left\{
+            \begin{tabular}{c}
+                $min_{u \in In(v)}(d(u, k - 1) + l(u, v))$ \\
+                $d(v, k - 1)$ \\
+            \end{tabular}
+        \right\}
+    \end{equation}
+    Base case: $d(s, 0) = 0$ and $d(v, 0) = \infty$ for all $v \neq s$.
+    \item This gives us the following algorithm
+    \item[] \lstinputlisting{code/bellman-ford-dp.sudo}
+    \item This has a running time of $O(mn)$ and requires $O(n^2)$ space.
+    \item We only depend on the previous column so we can reduce the space to $O(n)$.
+    \item We are also unnecessarily copying the previous value to the current column, so we can just get rid of the memoization grid and we get the orignal Bellman-Ford Algorithm.
+    \item[] \lstinputlisting{code/bellman-ford.sudo}
+\end{itemize}
+
+\subsection{Negative Length Cycles}
+\begin{itemize}
+    \item \textbf{Negative Length Cycle}: A cycle $C$ where the sum of the edge lengths of $C$ is negative.
+    \item Given $G = (V, E)$ with edge lengths and $s, t$. Suppose $G$ has a negative length cycle $C$, and $s$ can reach $C$ and $C$ can reach $t$. The shortest distance from $s$ to $t$ is $-\infty$.
+    \item We can modify the Bellman-Ford algorithm to detect negative cycles. We run the loop once more, and if any of the distance reduce, then there must be a negative cycle. That would mean a path with $n$ hops is shorter than a path with $n - 1$ hops.
+    \lstinputlisting{code/bellman-ford-negative-cycle-detection.sudo}
+    \item On a directed graph $G$, Bellman-Ford checks whether there is a negative cycle $C$ that is reachable from a specific vertex $s$. There may be negative cycles not reachable from $s$.
+    \item Instead of running Bellman-Ford $\left|V\right|$ times (once on each node), we just add a new node $s'$ and connect it to all nodes of $G$ with zero length edges. We can then just run Bellman-Ford once on $s'$.
+\end{itemize}
+
+\end{document} 

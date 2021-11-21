@@ -1,0 +1,13 @@
+EditDistance(A[1...m], B[1...n]):
+    int M[0...m][0...n]
+    for i = 1 to m do M[i, 0] = i * delta
+    for j = 1 to m do M[0, j] = j * delta
+
+    for i = 1 to m do
+        for j = 1 to n do
+            m_1 = delta + M[i - 1][j]
+            m_2 = delta + M[i][j - 1]
+            m_3 = cost(A[m], B[n]) + M[i - 1][j - 1]
+            M[i][j] = min(m_1, m_2, m_3)
+
+    Output M[m, n]

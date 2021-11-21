@@ -1,0 +1,6 @@
+simpleboo(str w) {
+    if (w = 0^374) then
+        return YES
+    else
+        return NO
+}

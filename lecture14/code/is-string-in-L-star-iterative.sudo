@@ -1,0 +1,20 @@
+IsStringInLStar-Iterative(A[1...n]):
+    boolean ISLk[1...(n+1), 0...k]
+    ISLk[n+1, 0] = TRUE
+
+    for (i = 1 to n)
+        ISLk[i, 0] = FALSE
+    
+    for (h = 1 to k)
+        for (i = 1 to n)
+            ISLk[i, h] = FALSE
+            for (j = i + 1 to n + 1)
+                if (
+                    ISLk[j, h - 1]
+                    and IsStringInL(A[i...(j-1)])
+                )
+                    ISLk[i, h] = TRUE
+                    break
+
+    if (ISLk[1, k] = 1) Output YES
+    else Output NO

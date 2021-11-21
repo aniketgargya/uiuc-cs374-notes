@@ -1,0 +1,16 @@
+Explore(G, u):
+    array Visited[1...n]
+    Initialize: Set Visited[i] = false for i = 1 to n
+    List: ToExplore, S
+    Add u to ToExplore and to S, Visited[u] = true
+    Make tree T with root as u
+    while ToExplore is not empty do
+        Remove node x from ToExplore
+        for each edge (x, y) in Adj(x) do
+            if Visited[y] = false
+                Visited[y] = true
+                Add y to ToExplore
+                Add y to S
+                Add y to T with x as its parent
+    
+    Output S

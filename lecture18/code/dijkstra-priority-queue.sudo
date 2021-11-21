@@ -1,0 +1,10 @@
+Q = makePQ()
+insert(Q, (s, 0))
+for each node u != s do
+    insert(Q, (u, infinity))
+X = empty set
+for i = 1 to |V| do
+    (v, dist(s, v)) = extractMin(Q)
+    X = X union { v }
+    for each u in Adj(v) do
+        decreaseKey(Q, (u, min(dist(s, u), dist(s, v) + l(u, v))))
