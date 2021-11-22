@@ -1,0 +1,54 @@
+\chapterWithSubtitle{Divide and Conquer}{March 4, 2021}
+
+\section{Pivot}
+
+\subsection{Quicksort}
+\begin{itemize}
+    \item[] \lstinputlisting{lecture11/code/Quicksort.sudo}
+    \item For a random pivot, we take the largest r, so the runtime is \\ 
+    $T(n) = O(n) + T(r - 1) + T(n - r) \leq O(n) + T(0) + T(n - 1) = O(n^2)$
+    \item If the pivot breaks the array into subarrays of length less than $\frac{3n}{4}$ and $\frac{n}{4}$, then the runtime is \\
+    $T(n) = O(n) + T(\frac{3n}{4}) + T(\frac{n}{4}) = O(n\log n)$
+    \item To obtain a good partition value, we will reduce the problem to the Selection problem. We will select the $\frac{n}{2}$ smallest element.
+\end{itemize}
+
+\subsection{Quickselect}
+\begin{itemize}
+    \item[] \lstinputlisting{lecture11/code/Quickselect.sudo}
+    \item As in Quicksort, a random pivot would have a rutime for $O(n^2)$
+\end{itemize}
+
+\subsection{BFPRT/Median of Medians}
+\begin{itemize}
+    \item Split $A[1...n]$ into $\frac{n}{5}$ chunks of size $5$.
+    \item Find the median of each chunk in $O(1)$ time: $O(n)$ in total.
+    \item Find the median of the medians, recursively: $T(\frac{n}{5})$ on the left if the previous MoM was to the right of the median, or the right if the previous MoM was to the left of the median.
+    \item Use the median of the medians (MoM) as the pivot.
+\end{itemize}
+
+\subsection{Pivots}
+\begin{itemize}
+    \item In practice, $p = 1$ "good on average"
+    \item In practice, random $p$ "very good" with high probability
+    \item In theory, $p = \text{MoM}$ "excellent", slow in practice
+\end{itemize}
+
+\section{Karatsuba}
+\begin{itemize}
+    \item The runtime of multiplying two $n$ digit numbers is $O(n^2)$.
+    \item Kolmogorov's Conjecture: $\Omega(n^2)$, Karatsuba: $O(n^2)$
+    \item For $x \times y$, let $x = a \times 10^{\frac{n}{2}} + b, y = c \times 10^{\frac{n}{2}} + d$. \\
+    $xy = (a \times 10^{\frac{n}{2}} + b)(c \times 10^{\frac{n}{2}} + d) = ac \times 10^n + (ad + bc) \times 10^{\frac{n}{2}} + bd$
+    \item $T(n) = 4T(\frac{n}{2}) + O(n) \rightarrow O(n^2)$
+    \item However $(a - b)(c - d) = ac - (ad + bc) + bd$
+    \item So $T(n) = 3T(\frac{n}{2}) + O(n) \rightarrow \Theta(n^{\log_2 3})$
+    \item[] \lstinputlisting{lecture11/code/Fastmultiplication.sudo}
+\end{itemize}
+
+\section{Theory vs Practice}
+\begin{itemize}
+    \item $x, y \geq 1000$ -- Karatsuba
+    \item $n \geq 10$ -- Splitting to 3
+    \item $n \geq 1000$ -- FFT
+    \item $n \geq 10^{100}$ -- $n\log n$ algorithm
+\end{itemize}

@@ -1,0 +1,127 @@
+\chapterWithSubtitle{DFAs}{February 2, 2021}
+
+\section{Deterministic-Finite-Autmata (DFA)}
+
+\subsection{DFAs also called Finite State Machines (FSMs)}
+\begin{itemize}
+    \item State machines that are common in practice:
+    \begin{itemize}
+        \item Vending machines
+        \item Elevators
+        \item Digital watches
+        \item Simple network protocols
+    \end{itemize}
+    \item Programs with fixed memory.
+\end{itemize}
+
+\section{Graphical Representation of DFA}
+
+\subsection{Graphical Representation/State Machine}
+\begin{itemize}
+    \item Directed graph with nodes represent \textbf{states} and edge/arcs representing \textbf{transitions} labeled by symbols in $\sum$.
+    \item For each state (vertex) $q$ and symbol $a \in \sum$ there is \textit{exactly} one outgoing edge labeled by $a$.
+    \item Initial/start state has a pointer (or labeled as $s$, $q_0$, or "start").
+    \item Some states with double circles labeled as accepting/final states.
+    \item A DFA $M$ accepts a string $w$ iff the unique walk starting at the start state and spelling out $w$ ends in an accepting state.
+    \item The language accepted (or recognized) by a DFA $M$ is denoted by $L(M)$ and defined as $L(M) = \{ w \mid M$ accepts $w \}$.
+\end{itemize}
+
+\section{Formal Definition of DFA}
+
+\subsection{Formal Tuple Notation}
+\begin{itemize}
+    \item A \textbf{deterministic finite automata (DFA)} $M = (Q, \sum, \delta, s, A)$ is a five tuple where:
+    \begin{itemize}
+        \item $Q$ is a finite set whose elements are called \textbf{states}
+        \item $\sum$ is a finite set called the \textbf{input alphabet}
+        \item $\delta$: $Q \times \sum \rightarrow Q$ is the \textbf{transition function}
+        \item $s \in Q$ is the \textbf{start state}
+        \item $A \subseteq Q$ is the set of \textbf{accepting/final} states
+    \end{itemize}
+    \item Common alternate notation: $q_0$ for start state, $F$ for final states.
+\end{itemize}
+
+\section{Extending the Transition Function to Strings}
+\begin{itemize}
+    \item Given DFA $M = (Q, \sum, \delta, s, A)$, $\delta(q, a)$ is the state that $M$ goes to from $q$ on reading letter $a$.
+    \item Useful to have notation to specify the unique state that $M$ will reach from $q$ on reading string $w$.
+    \item Transition function $\delta^{\ast}$: $Q \times \sum^{\ast} \rightarrow Q$ defined inductively as follows:
+    \begin{itemize}
+        \item $\delta^{\ast}(q,w) = q$ if $w = \epsilon$
+        \item $\delta^{\ast}(q,w) = \delta^{\ast}(\delta(q,a),x)$ if $w = ax$
+    \end{itemize}
+\end{itemize}
+
+\section{Formal Definition of Language Accepted by $M$}
+\begin{itemize}
+    \item The language $L(M)$ accepted by a DFA $M = (Q, \sum, \delta, s, A)$ is
+    \begin{equation}
+        \textstyle \{ w \in \sum^{\ast} \mid \delta^{\ast}(s, w) \in A \}
+    \end{equation}
+\end{itemize}
+
+\section{Constructing DFAs}
+\begin{itemize}
+    \item How do we design a DFA $M$ for a given language $L$? That is L(M) = L.
+    \item DFA is like a program that has a fixed amount of memory independent of input size.
+    \item The memory of a DFA is encoded in its states.
+    \item The state/memory must capture enough information from the input seen so far that it is sufficient for the suffix that is yet to be seen (not that DFA cannot go back).
+\end{itemize}
+
+\section{Constructing Regular Expressions}
+
+\subsection{State Removal Method}
+\begin{itemize}
+    \item If $q_1 = \delta(q_0, x)$ and $q_2 = \delta(q_1, y)$, then $q_2 = \delta(q_1, y) = \delta(\delta(q_0, x), y) = \delta(q_0, xy)$.
+    \item Keep removing states, and replace them with other, more complicated regular expressions states.
+\end{itemize}
+
+\subsection{Algebraic Method}
+\begin{itemize}
+    \item Transition functions themselves are algebraic expressions.
+    \item Demarcrate states as variables.
+    \item Can rewrite $q_1 = \delta(q_0, x)$ as $q_1 = q_0x$.
+    \item Solve for accepting state.
+    \item Theorem (Arden's Theorem): $R = Q + RP = QP^{\ast}$.
+\end{itemize}
+
+\section{Product Construction}
+
+\subsection{Union and Intersection}
+\begin{itemize}
+    \item Are languages accepted by DFAs closed under union? That is given DFAs $M_1$ and $M_2$ is there a DFA that accepts $L(M_1) \cup L(M_2)$?
+    \item How about intersection $L(M_1) \cap L(M_2)$?
+    \item Idea from programming: on input string $w$
+    \begin{itemize}
+        \item Simulate $M_1$ on $w$
+        \item Simulate $M_2$ on $w$
+        \item If both accept, then $w \in L(M_1) \cap L(M_2)$. If at least one accepts, then $w \in L(M_1) \cup L(M_2)$.
+        \item \textbf{Catch:} We want a single DFA $M$ that can only read $w$ once. This is done by multiplying DFAs.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Product Construction for Intersection}
+\begin{itemize}
+    \item $M_1 = (Q_1, \sum, \delta_1, s_1, A_1)$ and $M_2 = (Q_2, \sum, \delta_2, s_2, A_2)$
+    \item \textbf{Theorem}: $L(M) = L(M_1) \cap L(M_2)$.
+    \item Create $M = (Q, \sum, \delta, s, A)$ where
+    \begin{itemize}
+        \item $Q = Q_1 \times Q_2 = \{ (q_1, q_2) \mid q_1 \in Q_1, q_2 \in Q_2 \}$
+        \item $s = (s_1, s_2)$
+        \item $\delta$: $Q \times \sum \rightarrow Q$ where $\delta((q_1, q_2), a) = (\delta_1(q_1, a), \delta_2(q_2, a))$
+        \item $A = A_1 \times A_2 = \{ (q_1, q_2) \mid q_1 \in A_1, q_2 \in A_2 \}$
+    \end{itemize}
+\end{itemize}
+
+\subsection{Product Construction for Union}
+\begin{itemize}
+    \item $M_1 = (Q_1, \sum, \delta_1, s_1, A_1)$ and $M_2 = (Q_2, \sum, \delta_2, s_2, A_2)$
+    \item \textbf{Theorem}: $L(M) = L(M_1) \cup L(M_2)$.
+    \item Create $M = (Q, \sum, \delta, s, A)$ where
+    \begin{itemize}
+        \item $Q = Q_1 \times Q_2 = \{ (q_1, q_2) \mid q_1 \in Q_1, q_2 \in Q_2 \}$
+        \item $s = (s_1, s_2)$
+        \item $\delta$: $Q \times \sum \rightarrow Q$ where $\delta((q_1, q_2), a) = (\delta_1(q_1, a), \delta_2(q_2, a))$
+        \item $A = A_1 \times A_2 = \{ (q_1, q_2) \mid q_1 \in A_1 $ or $ q_2 \in A_2 \}$
+    \end{itemize}
+\end{itemize}
