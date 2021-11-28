@@ -30,7 +30,7 @@
         \item $T(u)$: a subtree of $T$ hanging at node $u$.
         \item $OPT(u)$: the max weighted independent set value in $T(u)$.
         \begin{equation}
-            OPT(u) = max \left\{
+            OPT(u) = \max \left\{
                 \begin{tabular}{c}
                     $\sum_{\text{$v$ child of $u$}} OPT(v)$ \\
                     $w(u) + \sum_{\text{$v$ grandchild of $u$}} OPT(v)$

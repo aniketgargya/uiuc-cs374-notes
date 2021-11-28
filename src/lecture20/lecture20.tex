@@ -4,7 +4,7 @@
 
 \subsection{Shortest Distance Problems}
 \begin{itemize}
-    \item The optimality substructure is $dist(s, u) = min_{v \in In(u)}(dist(s, v) + \ell(v, u))$.
+    \item The optimality substructure is $dist(s, u) = \min_{v \in In(u)}(dist(s, v) + \ell(v, u))$.
     \item For Bellman-Ford, we used the formula $d(u) = \min_{v \in In(u)}(d(v) + \ell(v, u))$.
     \begin{itemize}
         \item If $v$ is on the shortest path of $u$ and $d(v) = dist(s, v)$, then $d(u) = dist(s, u)$ in the next iteration.

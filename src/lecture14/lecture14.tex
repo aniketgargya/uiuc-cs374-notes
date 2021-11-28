@@ -29,7 +29,7 @@
         \item \texttt{ISLk(n + 1, 0)} $= 1$ if $\exists i < j \leq n + 1$ such that \texttt{ISLk(j, h - 1)} $= 1$ and \texttt{IsStringInL(A[i...(j - 1)])} $= 1$.
         \item \texttt{ISLk(i, h)} $= 0$ otherwise.
     \end{itemize}
-    \item \texttt{ISLk(i, h)} $= max_{i < j \leq n + 1}\texttt{ISLk(j, h - 1) }\times$ \texttt{IsStringInL(A[i...(j - 1)])} alternatively.
+    \item \texttt{ISLk(i, h)} $= \max_{i < j \leq n + 1}\texttt{ISLk(j, h - 1) }\times$ \texttt{IsStringInL(A[i...(j - 1)])} alternatively.
 \end{itemize}
 
 \subsection{Iterative Algorithm}
@@ -130,7 +130,7 @@
     \item Let \texttt{Opt($i$, $j$)} be the optimal cost of aligning $x_1...x_i$ and $y_1...y_j$.
     \begin{equation}
         \texttt{Opt}(i, j) = \begin{cases}
-            \texttt{min} \left\{
+            \min \left\{
                 \begin{tabular}{c}
                     $\alpha_{x_iy_j} + \texttt{Opt}(i - 1, j - 1)$ \\
                     $\delta + \texttt{Opt}(i - 1, j)$ \\

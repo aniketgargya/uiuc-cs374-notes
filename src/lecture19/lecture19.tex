@@ -10,7 +10,7 @@
 
 \subsection{What Can We Learn from Dijkstra?}
 \begin{itemize}
-    \item However, $d'(s, u) = min(d'(s, u), dist(s, v) + l(v, u))$ because $d'(s, u) \geq d(s, u)$, still holds true.
+    \item However, $d'(s, u) = \min(d'(s, u), dist(s, v) + l(v, u))$ because $d'(s, u) \geq d(s, u)$, still holds true.
     \item If $s = v_0 \rightarrow v_1 \rightarrow v_2 \rightarrow ... \rightarrow v_k$ is a shortest path from $s to v_k$, then
     \begin{itemize}
         \item for $1 \leq i < k$, $s = v_0 \rightarrow v_1 \rightarrow v_2 \rightarrow ... \rightarrow v_i$ is a shortest path from $s$ to $v_i$. In other words, a subpath of a shortest path is still a shortest path.
@@ -38,9 +38,9 @@
 \begin{itemize}
     \item $d(v, k)$ is the shortest path length from $s$ to $v$ using at most $k$ edges. Note: $dist(s, v) = d(v, n - 1)$.
     \item Recursion for $d(v, k)$: \begin{equation}
-        d(v, k) = min \left\{
+        d(v, k) = \min \left\{
             \begin{tabular}{c}
-                $min_{u \in In(v)}(d(u, k - 1) + l(u, v))$ \\
+                $\min_{u \in In(v)}(d(u, k - 1) + l(u, v))$ \\
                 $d(v, k - 1)$ \\
             \end{tabular}
         \right\}

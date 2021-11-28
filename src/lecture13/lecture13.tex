@@ -66,7 +66,7 @@
         \item \textit{Recursive Relation}:
         \begin{itemize}
             \item $LIS(i, j) = LIS(i - 1, j)$ for $A[i] > A[j]$
-            \item $LIS(i, j) = max(LIS(i - 1, j), 1 + LIS(i - 1, i))$ for $A[i] \leq A[j]$
+            \item $LIS(i, j) = \max(LIS(i - 1, j), 1 + LIS(i - 1, i))$ for $A[i] \leq A[j]$
         \end{itemize}
     \end{itemize}
     \item[] \includegraphics[width=\textwidth]{lecture13/images/lis-memo.png}
