@@ -28,19 +28,19 @@
         \item \textit{Goal}: Find the maximum weight independent set in $T$.
         \item We can use the backtracking solution described above, however a tree is special as there is a good ordering.
         \item $T(u)$: a subtree of $T$ hanging at node $u$.
-        \item $OPT(u)$: the max weighted independent set value in $T(u)$.
+        \item \texttt{OPT($u$)}: the max weighted independent set value in $T(u)$.
         \begin{equation}
-            OPT(u) = \max \left\{
+            \texttt{OPT($u$)} = \max \left\{
                 \begin{tabular}{c}
-                    $\sum_{\text{$v$ child of $u$}} OPT(v)$ \\
-                    $w(u) + \sum_{\text{$v$ grandchild of $u$}} OPT(v)$
+                    $\sum_{\text{$v$ child of $u$}} \texttt{OPT($v$)}$ \\
+                    $w(u) + \sum_{\text{$v$ grandchild of $u$}} \texttt{OPT($v$)}$
                 \end{tabular}
             \right\}
         \end{equation}
         \item There are $O(n)$ sub-problems.
-        \item The base case is reaching leaf of the tree.
+        \item The base case is reaching a leaf of the tree.
         \item The recurrence can be memoized using a tree, so it is easy to look up children and grandchildren.
-        \item Compute $OPT(u)$ bottom up as it needs to have the computed values of all children and grandchildren of $u$. This can be done in Post-Order traversal of the tree.
+        \item Compute \texttt{OPT($u$)} bottom up as it needs to have the computed values of all children and grandchildren of $u$. This can be done in Post-Order traversal of the tree.
         \item[] \lstinputlisting{lecture15/code/mis-tree.sudo}
         \item Space: $O(n)$, to store the value of each node of $T$.
         \item Running Time:
@@ -126,9 +126,9 @@
 \begin{itemize}
     \item Given $G = (V, E)$ and vertex $u \in V$. Let $n = \left|V\right|$.
     \item[] \lstinputlisting{lecture15/code/explore.sudo}
-    \item \texttt{Explore(G, u)} terminates with $S = con(u)$.
+    \item \texttt{Explore($G$, $u$)} terminates with $S = con(u)$.
     \begin{itemize}
-        \item Once \texttt{Visited[i]} is set to \texttt{true}, it never changes. Hance a node is added only once to \texttt{ToExplore}. Thus, the algorithm terminates in at most $n$ iterations of the while loop.
+        \item Once \texttt{Visited[$i$]} is set to \texttt{true}, it never changes. Hance a node is added only once to \texttt{ToExplore}. Thus, the algorithm terminates in at most $n$ iterations of the while loop.
         \item If $v \in con(u)$, then $v \in S$.
         \item If $v \notin con(u)$, then $v \notin S$.
         \item Thus $S = con(u)$ at the termination of the algorithm.

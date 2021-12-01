@@ -28,8 +28,8 @@
     \item For any two nodes $u$ and $v$, the two intervals $[pre(u), post(u)]$ and $[pre(v), post(v)]$ are disjoint or one is contained in the other.
     \begin{itemize}
         \item Assume without loss of generality that $pre(u) < pre(v)$. Then $v$ is visited after $u$.
-        \item If \texttt{DFS(v)} is invoked before \texttt{DFS(u)} finishes, then $post(v) < post(u)$.
-        \item If \texttt{DFS(v)} is invoked after \texttt{DFS(u)}, then $pre(v) > post(u)$.
+        \item If \texttt{DFS($v$)} is invoked before \texttt{DFS(u)} finishes, then $post(v) < post(u)$.
+        \item If \texttt{DFS($v$)} is invoked after \texttt{DFS(u)}, then $pre(v) > post(u)$.
     \end{itemize}
     \item $pre$ and $post$ numbers are useful in several applications of DFS.
 \end{itemize}
@@ -40,9 +40,9 @@
     \item[] \includegraphics[width=0.8\textwidth]{lecture17/images/directed-dfs-tree-time.jpg}
     \item Generalizing ideas from undirected graphs:
     \begin{itemize}
-        \item \texttt{DFS(G)} takes $O(m + n)$ time.
-        \item Edges added form a branching: a forest of out-trees. Output of \texttt{DFS(G)} depends on the order in which vertices are considered.
-        \item If $u$ is the first vertex considered by \texttt{DFS(G)}, then \texttt{DFS(u)} outputs a directed out-tree $T$ rooted at $u$, and a vertex $v$ is in $T$ if and only if $v \in rch(u)$.
+        \item \texttt{DFS($G$)} takes $O(m + n)$ time.
+        \item Edges added form a branching: a forest of out-trees. Output of \texttt{DFS($G$)} depends on the order in which vertices are considered.
+        \item If $u$ is the first vertex considered by \texttt{DFS($G$)}, then \texttt{DFS($u$)} outputs a directed out-tree $T$ rooted at $u$, and a vertex $v$ is in $T$ if and only if $v \in rch(u)$.
         \item For any two vertices $x$ and $y$, the intervals $[pre(x), post(x)]$ and $[pre(y), post(y)]$ are either disjoint or one is contained in the other.
     \end{itemize}
     \item Edges of $G$ can be classified with respect to the DFS tree $T$ as
@@ -64,7 +64,7 @@
 
 \subsection{Cycles in Graphs}
 \begin{itemize}
-    \item $G$ has a cycle if and only if there is a back edge in \texttt{DFS(G)}.
+    \item $G$ has a cycle if and only if there is a back edge in \texttt{DFS($G$)}.
     \begin{itemize}
         \item If: If $(u, v)$ is a back edge, then there is a cycle $C$ consisting of the path from $v$ to $u$ in the DFS search tree and the edge $(u, v)$.
         \item Only if: Suppose there is a cycle $C = v_1 \rightarrow v_2 \rightarrow ... \rightarrow v_k \rightarrow v_1$. Let $v_i$ be the first node in $C$ visited in DFS. All other nodes in $C$ are descendants of $v_i$ since they are reachable from $v_i$. Therefore, $(v_{i - 1}), v_i)$ (or $(v_k, v_1)$ if $i = 1$) is a back edge.
@@ -73,7 +73,7 @@
     \begin{itemize}
         \item Assume $post(u) < post(v)$ and $(u, v)$ is an edge in $G$. We can derive a contradiction. One of the two cases holds from DFS properties.
         \begin{enumerate}
-            \item $[pre(u), post(u)]$ is contained in $[pre(v), post(v)]$: Implies that $u$ is explored during \texttt{DFS(v)} and hence is a descendent of $v$. Edge $(u, v)$ implies a cycle in $G$ but $G$ is a DAG. Contradiction!
+            \item $[pre(u), post(u)]$ is contained in $[pre(v), post(v)]$: Implies that $u$ is explored during \texttt{DFS($v$)} and hence is a descendent of $v$. Edge $(u, v)$ implies a cycle in $G$ but $G$ is a DAG. Contradiction!
             \item $[pre(u), post(u)]$ is disjoint from $[pre(v), post(v)]$. This cannot happen since $v$ would be explored from $u$. Contradiction!
         \end{enumerate}
     \end{itemize}
@@ -82,9 +82,9 @@
 \subsection{Using DFS with DAGs}
 \begin{itemize}
     \item Given $G$, generate a topological sort if it is DAG, otherwise output a cycle $C$.
-    \item Compute \texttt{DFS(G)}
+    \item Compute \texttt{DFS($G$)}
     \item If there is a back edge $e = (v, u)$, then $G$ is not a DAG. Output cycle $C$ formed by the path from $u$ to $v$ in $T$ plus edge $(v, u)$.
-    \item Otherwise, output nodes in decreasing post visit order. There is no need to sort as \texttt{DFS(G)} can output nodes in a correct order.
+    \item Otherwise, output nodes in decreasing post visit order. There is no need to sort as \texttt{DFS($G$)} can output nodes in a correct order.
 \end{itemize}
 
 \section{DAGs, DFS, and SCC in Linear Time}
@@ -113,13 +113,13 @@
     \item We can generate a wishful thinking algorithm.
     \begin{itemize}
         \item Let $u$ be a vertex in a sink SCC of $G^{SCC}$.
-        \item Do \texttt{DFS(u)} to compute $SCC(u)$.
+        \item Do \texttt{DFS($u$)} to compute $SCC(u)$.
         \item Remove $SCC(u)$ and repeat.
     \end{itemize}
     \item Justification
     \begin{itemize}
-        \item \texttt{DFS(u)} only visits vertices (and edges) in $SCC(u)$ since there are no edges that come out of sink.
-        \item \texttt{DFS(u)} takes time proportional to size of $SCC(u)$, so the total time is $O(m + n)$.
+        \item \texttt{DFS($u$)} only visits vertices (and edges) in $SCC(u)$ since there are no edges that come out of sink.
+        \item \texttt{DFS($u$)} takes time proportional to size of $SCC(u)$, so the total time is $O(m + n)$.
     \end{itemize}
     \item The challenge of this algorithm if finding a vertex in a sink $SCC$ of $G^{SCC}$.
     \begin{itemize}

@@ -27,7 +27,7 @@
 
 \subsection{Properties of BFS on Undirected Graphs}
 \begin{itemize}
-    \item The following properties hold upon termination of \texttt{BFS(s)}.
+    \item The following properties hold upon termination of \texttt{BFS($s$)}.
     \item The search tree contains exactly the set of vertices in the connected component of $s$.
     \item If $dist(u) < dist(v)$, then $u$ is visited before $v$.
     \item For every vertex $u$, $dist(u)$ is the length of the shortest path from $s$ to $u$.
@@ -36,7 +36,7 @@
 
 \subsection{Properties of BFS on Directed Graphs}
 \begin{itemize}
-    \item The following properties hold upon termination of \texttt{BFS(s)}.
+    \item The following properties hold upon termination of \texttt{BFS($s$)}.
     \item The search tree contains exactly the set of vertices reachable from $s$.
     \item If $dist(u) < dist(v)$, then $u$ is visited before $v$.
     \item For every vertex $u$, $dist(u)$ is the length of the shortest path from $s$ to $u$.
@@ -59,7 +59,7 @@
 \begin{itemize}
     \item \textit{Special case}: All edge lengths are $1$.
     \begin{itemize}
-        \item Run \texttt{BFS(s)} to get shortest path distances from $s$ to all other nodes.
+        \item Run \texttt{BFS($s$)} to get shortest path distances from $s$ to all other nodes.
         \item This is an $O(m + n)$ time algorithm.
     \end{itemize}
     \item \textit{Special case}: $l(e)$ is an integer for all $e$.
@@ -67,7 +67,7 @@
         \item We can reduce the graph to unit edge length p
         \item Let $L = \max_e l(e)$. The new graph has $O(mL)$ edges and $O(mL + n)$ nodes. BFS would take $O(mL + n)$ time. This is not efficient if $L$ is large enough.
     \end{itemize}
-    \item BFS works because \texttt{BFS(s)} explores nodes in increasing distance from $s$.
+    \item BFS works because \texttt{BFS($s$)} explores nodes in increasing distance from $s$.
     \begin{itemize}
         \item Let $G$ be a directed graph with non-negative edge lengths. Let $dist(s, v)$ denote the shortest path length from $s$ to $v$. If $s = v_0 \rightarrow v_1 \rightarrow ... \rightarrow v_k$ is a shortest path from $s$ to $v_k$, then for $1 \leq i < k$
         \begin{itemize}

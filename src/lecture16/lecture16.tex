@@ -35,9 +35,9 @@
 \begin{itemize}
     \item Given $G = (V, E)$, a directed graph, and vertex $u \in V$. Let $n = \left| V \right|$.
     \item[] \lstinputlisting{lecture16/code/basic-search-directed.sudo}
-    \item \texttt{Explore(G, u)} terminates with $S = rch(u)$.
+    \item \texttt{Explore($G$, $u$)} terminates with $S = rch(u)$.
     \item $T$ is a search tree rooted at $u$ containing $S$ with edges directed away from root to leaves.
-    \item Using \texttt{Explore(G, u)} to compute $rch(u)$ in $O(n + m)$ time, we can answer some connectivity problems.
+    \item Using \texttt{Explore($G$, $u$)} to compute $rch(u)$ in $O(n + m)$ time, we can answer some connectivity problems.
     \begin{itemize}
         \item Given $G$ and nodes $u$ and $v$, can $u$ reach $v$?
         \item Given $G$ and $u$, compute $rch(u)$.

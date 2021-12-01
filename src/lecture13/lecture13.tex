@@ -57,16 +57,16 @@
 \subsection{Longest Increasing Subsequence}
 \begin{itemize}
     \item[] \lstinputlisting{lecture13/code/longest-increasing-subsequence.sudo}
-    \item Memorizing LIS\_smaller($A[1...n]$, infinity) generates $O(n^2)$ sub-problems.
+    \item Memorizing \texttt{LIS\_smaller($A[1...n]$, infinity)} generates $O(n^2)$ sub-problems.
     \item The running time after memorizing recursion is $O(n^2)$ because it is $O(1)$ to assemble the answer from two memoized recursive calls.
     \item $O(n^2)$ space is required for memoization.
-    \item $LIS(i, j)$ is the length of the longest increasing subsequence in $A[1...i]$ among numbers less than $A[j]$ (define $i < j$).
+    \item \texttt{LIS($i$, $j$)} is the length of the longest increasing subsequence in $A[1...i]$ among numbers less than $A[j]$ (define $i < j$).
     \begin{itemize}
-        \item \textit{Base Case}: $LIS(0, j) = 0$ for $1 \leq j \leq n + 1$.
+        \item \textit{Base Case}: $\texttt{LIS($0$, $j$)} = 0$ for $1 \leq j \leq n + 1$.
         \item \textit{Recursive Relation}:
         \begin{itemize}
-            \item $LIS(i, j) = LIS(i - 1, j)$ for $A[i] > A[j]$
-            \item $LIS(i, j) = \max(LIS(i - 1, j), 1 + LIS(i - 1, i))$ for $A[i] \leq A[j]$
+            \item $\texttt{LIS($i$, $j$)} = \texttt{LIS($i - 1$, $j$)}$ for $A[i] > A[j]$
+            \item $\texttt{LIS($i$, $j$)} = \max(\texttt{LIS($i - 1$, $j$)}, 1 + \texttt{LIS($i - 1$, $i$)})$ for $A[i] \leq A[j]$
         \end{itemize}
     \end{itemize}
     \item[] \includegraphics[width=\textwidth]{lecture13/images/lis-memo.png}

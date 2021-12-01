@@ -20,7 +20,6 @@
     \item Given TM $M$, $L(M) = \{ w \in \sum^\ast \mid \text{$M$ accepts $w$} \}$. Caveat: A language $L$ can be accepted by many different TMs.
     \item \textbf{Algorithm}: $M$ is an algorithm if it halts on every input and accepts/rejects.
     \item \textbf{Decidable (or Recursive)}: A language $L$ is decidable or recursive if there is an algorithm $M$ such that $L = L(M)$.
-    \item \textbf{Recursive Enumerable (r.e.)}: A language $L$ is recursively enumerable if there is a TM $M$ such that $L = L(M)$.
     \item \textbf{Recursively Enumerable (r.e.)}: A language $L$ is recursively enumerable if there is a TM $M$ such that $L = L(M)$.
 \end{itemize}
 
@@ -104,13 +103,13 @@
     \end{itemize}
     \item $L_{374} = \{ \langle M \rangle \mid L(M) = \{ 0^{374} \} \}$
     \begin{itemize}
-        \item Given an arbitrary program \texttt{boo(str w)}, does \texttt{boo()} accept only the string $0^{374}$ and nothing else?
+        \item Given an arbitrary program \texttt{boo(str $w$)}, does \texttt{boo()} accept only the string $0^{374}$ and nothing else?
         \item We need to prove that if we had a decider \texttt{DecideL\_374} for $L_{374}$, then we can create a decider for Halt.
         \item The decider for Halt takes an arbitrary program \texttt{foo()} and needs to check if \texttt{foo()} halts.
         \item The reduction should transform \texttt{foo()} into a program \texttt{fooboo()} such that the answer to \texttt{fooboo()} from \texttt{DecideL\_374} will let us know if \texttt{foo()} halts.
         \item[] \lstinputlisting{lecture22/code/L_374-simpleboo.sudo}
         \item $L(\texttt{simpleboo()}) = \{ 0^{374} \}$
-        \item Given an arbitrary program \texttt{foo()}, reduction creates \texttt{fooboo(str w)}
+        \item Given an arbitrary program \texttt{foo()}, reduction creates \texttt{fooboo(str $w$)}
         \item[] \lstinputlisting{lecture22/code/L_374-fooboo.sudo}
         \item The language of \texttt{fooboo()} is $\{ 0^{374} \}$ if \texttt{foo()} halts. The language of \texttt{fooboo()} is $\emptyset$ if \texttt{foo()} does not halt.
         \item \texttt{fooboo()} is in $L_{374}$ if and only if $\texttt{foo()} \in L_{\text{HALT}}$.
@@ -120,7 +119,7 @@
     \end{itemize}
     \item $L_{\neq \emptyset} = \{ \langle M \rangle \mid L(M) \neq \emptyset \}$
     \begin{itemize}
-        \item Given an arbitrary program \texttt{boo(str w)}, does \texttt{boo()} accept any string?
+        \item Given an arbitrary program \texttt{boo(str $w$)}, does \texttt{boo()} accept any string?
         \item[] \lstinputlisting{lecture22/code/L_emptyset-simpleboo.sudo}
         \item The language of \texttt{fooboo()} is $\sum^\ast$ is \texttt{foo()} halts. The language of \texttt{fooboo()} is $\emptyset$ if \texttt{foo()} does not halt.
         \item $\texttt{fooboo()} \in L_{\neq \emptyset}$ if and only if $\texttt{foo()} \in L_\text{HALT}$.
