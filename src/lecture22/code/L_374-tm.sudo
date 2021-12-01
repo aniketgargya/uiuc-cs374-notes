@@ -1,0 +1,12 @@
+DecideHalt(<M, w>):
+    Encode the following TM M':
+        M'(x):
+            run M on input w
+            if x = 0^374
+                return TRUE
+            else
+                return FALSE
+    if DecideL_374(<M'>)
+        return TRUE
+    else
+        return FALSE

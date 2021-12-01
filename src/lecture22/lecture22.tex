@@ -115,6 +115,8 @@
         \item The language of \texttt{fooboo()} is $\{ 0^{374} \}$ if \texttt{foo()} halts. The language of \texttt{fooboo()} is $\emptyset$ if \texttt{foo()} does not halt.
         \item \texttt{fooboo()} is in $L_{374}$ if and only if $\texttt{foo()} \in L_{\text{HALT}}$.
         \item If $L_{374}$ is decidable, then $L_\text{HALT}$ is decidable. Since $L_\text{HALT}$ is undecidable, $L_{374}$ is undecidable.
+        \item Another example reduction:
+        \item[] \lstinputlisting{lecture22/code/L_374-tm.sudo}
     \end{itemize}
     \item $L_{\neq \emptyset} = \{ \langle M \rangle \mid L(M) \neq \emptyset \}$
     \begin{itemize}
