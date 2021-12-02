@@ -1,7 +1,7 @@
 # UIUC CS 374: Introduction to Algorithms and Models of Computation
 
 ## Intro
-These are my notes for CS 374: Introduction to Algorithms and Models of Computation. I took the class Spring 2020, and here's the course website for the semester: https://courses.engr.illinois.edu/cs374/sp2021/.
+These are my notes for CS 374: Introduction to Algorithms and Models of Computation. I took the class Spring 2021, and here's the course website for the semester: https://courses.engr.illinois.edu/cs374/sp2021/.
 
 ## The Course
 The course is divided into three sections:
