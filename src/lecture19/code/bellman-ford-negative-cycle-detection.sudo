@@ -5,7 +5,7 @@ d(s) = 0
 for k = 1 to n - 1 do
     for each v in V do
         for each edge (u, v) in In(v) do
-            d(v) = min(d(v), d(u) = l(u, v))
+            d(v) = min(d(v), d(u) + l(u, v))
 
 for each v in V do
     for each edge (u, v) in In(v) do
